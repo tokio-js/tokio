@@ -1,0 +1,14 @@
+/node_modules
+/corelogs
+/private
+/target
+/build
+/dist
+/out
+
+*.test.*
+
+*.lock
+*.json
+!package.json
+!tsconfig.json

@@ -1,0 +1,19 @@
+{
+  "name": "tokio-js",
+  "version": "1.0.0",
+  "description": "Tools for TS",
+  "author": "AtomicGamer9523",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.5"
+  },
+  "scripts": {
+    "build": "nj-cli build",
+    "test": "ts-node ./examples/basic_core_logger/index.ts && ts-node ./examples/macros/index.ts && ts-node ./examples/structs/index.ts"
+  },
+
+
+  "types": "./lib/lib.d.ts",
+  "type": "commonjs",
+  "main": "./build/lib.js"
+}
