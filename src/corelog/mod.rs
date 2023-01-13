@@ -5,7 +5,10 @@ use::{
             SystemTime,
             UNIX_EPOCH
         },
-        io::Write,
+        io::{
+            Write,
+            self
+        },
         fs::{
             File,
             self
@@ -13,6 +16,13 @@ use::{
     }
 };
 
+
+const CORE_START: &str =
+r#"|------------------------------------CORELOG START-------------------------------------
+|          Time           | Lvl |                         File And Message"#;
+const TOP_START: &str =
+r#"|------------------------------------CORELOG START-------------------------------------
+|          Time           | Lvl |                         File And Message"#;
 
 
 
@@ -22,6 +32,7 @@ const DEBUG: bool = false;
 
 
 struct CoreLog {
+    topfile: Option<File>,
     latest: Option<File>,
     file: Option<File>
 }
@@ -36,89 +47,72 @@ impl CoreLog {
             .as_millis();
 
         match fs::read_dir("corelogs") {
-            Ok(_) => {
-                let preres: Option<File> = match File::create("corelogs/latest.log") {
-                    Ok(mut f) => {
-                        __log_msg(&mut f, &String::from("----------CORELOG START----------"));
-                        Some(f)
-                    },
-                    Err(_) => None
-                };
-                match File::create(format!("corelogs/CORELOG-{}.log",time)) {
-                    Ok(mut f) => {
-                        __log_msg(&mut f, &String::from("----------CORELOG START----------"));
-                        Self {
-                            latest: preres,
-                            file: Some(f)
-                        } 
-                    },
-                    Err(_) => {
-                        Self {
-                            latest: preres,
-                            file: None
-                        }
-                    }
-                }
-            },
+            Ok(_) => CoreLog::success(&time),
             Err(_) => {
-                match fs::create_dir("corelogs") {
-                    Ok(_) => {
-                        let preres: Option<File> = match File::create("corelogs/latest.log") {
-                            Ok(mut f) => {
-                                __log_msg(&mut f, &String::from("----------CORELOG START----------"));
-                                Some(f)
-                            },
-                            Err(_) => None
-                        };                
-                        match File::create(format!("corelogs/CORELOG-{}.log",time)) {
-                            Ok(mut f) => {
-                                __log_msg(&mut f, &String::from("----------CORELOG START----------"));
-                                Self {
-                                    latest: preres,
-                                    file: Some(f)
-                                } 
-                            },
-                            Err(_) => {
-                                Self {
-                                    latest: preres,
-                                    file: None
-                                }
-                            }
-                        }
-                    },
+                match create_dir() {
+                    Ok(_) => CoreLog::success(&time),
                     Err(_) => {
                         println!("CORELOG ERROR: Failed to create logs directory");
-                        Self {
-                            latest: None,
-                            file: None
-                        }
+                        CoreLog::void()
                     }
                 }
             }
         }
     }
 
-    /// Logs to file
+    fn void() -> Self { Self { topfile: None, latest: None, file: None } }
+
+    fn success(time: &u128) -> Self {
+        let topfile = create_file(format!("corelogs/LOG-{}.log",time),CORE_START);
+        let latest = create_file("corelogs/latest.log",CORE_START);
+        let file = create_file(format!("corelogs/CORELOG-{}.log",time),TOP_START);
+        Self { topfile, latest, file }
+    }
+
+    /// Logs to topfile
     #[node_bindgen]
-    pub fn log(&mut self, msg: String){
+    pub fn toplog(&mut self, msg: String){
+        match &mut self.topfile {
+            Some(f) => {
+                log_message(f, &msg);
+            },
+            None => {}
+        };
+    }
+
+    /// Logs to corefile
+    #[node_bindgen]
+    pub fn corelog(&mut self, msg: String){
         match &mut self.file {
             Some(f) => {
-                __log_msg(f, &msg);
+                log_message(f, &msg);
             },
             None => {}
         };
         match &mut self.latest {
             Some(f) => {
-                __log_msg(f, &msg);
+                log_message(f, &msg);
             },
             None => {}
         };
     }
 }
 
-fn __log_msg(file: &mut File, msg: &String){
-    let res = file.write_all(format!("{}\n",msg).as_bytes());
+fn log_message<T: ToString>(file: &mut File, msg: T){
+    let res = file.write_all(format!("{}\n",msg.to_string()).as_bytes());
     if DEBUG {
         println!("write: {:?}",res);
     }
+}
+
+fn create_file<T: ToString>(name: T, msg: &'static str) -> Option<File> {
+    let mut file = match File::create(name.to_string()) {
+        Ok(v) => v,
+        Err(_) => { return None; }
+    };
+    log_message(&mut file, msg.to_string());
+    Some(file)
+}
+fn create_dir() -> io::Result<()> {
+    fs::create_dir("corelogs")
 }

@@ -1,7 +1,13 @@
 import * as corelog from "../corelog/corelog";
-import tracing from "../tracing/tracing";
+import * as tracing from "../tracing/tracing";
 export { tracing };
-
+export namespace __INTERNALS {
+    export var _CORELOG_ENABLED: boolean = true;
+    export const unsafeLog = (m: string): void => {
+        let r = tracing.format(m,"TRC",tracing.trace(),new Date());
+        corelog.corelog(r[1]);
+    }
+}
 export enum Level {
     Info = 2,
     Debug = 3,
@@ -12,33 +18,33 @@ export enum Level {
 export function LevelToString(level: Level): string {
     switch (level) {
         case Level.Info:
-            return "Info"
+            return "INF"
         case Level.Debug:
-                return "Debug"
+                return "DBG"
         case Level.Trace:
-            return "Trace"
+            return "TRC"
         case Level.Warn:
-                return "Warn"
+                return "WRN"
         case Level.Error:
-            return "Error"
+            return "ERR"
     }
 }
-export function StringToLevel(dfault: Level,level?: string): Level {
+export function StringToLevel(dfault: Level, level?: string): Level {
     let lvl: Level;
     switch (level) {
-        case "Error":
+        case "ERR":
             lvl = Level.Error;
             break;
-        case "Warn":
+        case "WRN":
             lvl = Level.Warn;
             break;
-        case "Info":
+        case "INF":
             lvl = Level.Info;
             break;
-        case "Debug":
+        case "DBG":
             lvl = Level.Debug;
             break;
-        case "Trace":
+        case "TRC":
             lvl = Level.Trace;
             break;
         default:
@@ -91,15 +97,20 @@ class ConsoleLogger {
     public error(m: any, file: string[]) {
         ConsoleLogger.log(m,file,Level.Error);
     }
-    private static __format(m: any, level: Level, color: string, colorend: string, file: string[], rn: Date){
-        return tracing.__format(m,LevelToString(level),color,colorend,file,rn);
+    private static __format(m: any, level: Level, file: string[], rn: Date){
+        return tracing.format(m,LevelToString(level),file,rn);
     }
     private static __log(m: string): void { process.stdout.write(m + "\n") }
-    private static __cog(m: string): void { corelog.log(m); }
+    private static __cog(m: string[]): void {
+        if(__INTERNALS._CORELOG_ENABLED){
+            corelog.corelog(m[1]);
+            corelog.toplog(m[2]);
+        }
+    }
     public static log(m: any, file: string[], level: Level){
-        let res = this.__format(m,level,"","",file,new Date());
+        let res = this.__format(m,level,file,new Date());
         if(level.valueOf()<=getLogLevel().valueOf()){this.__log(res[0])}
-        if(level.valueOf()<=__getLevel().valueOf()){this.__cog(res[1])}
+        if(level.valueOf()<=__getLevel().valueOf()){this.__cog(res)}
     }
 }
 class IOLogger {
@@ -118,8 +129,8 @@ class IOLogger {
     public error(m: any, file: string[]) {
         IOLogger.log(m,file,Level.Error);
     }
-    private static __format(m: any, level: Level, color: string, colorend: string, file: string[], rn: Date){
-        return tracing.__format(m,LevelToString(level),color,colorend,file,rn);
+    private static __format(m: any, level: Level, file: string[], rn: Date){
+        return tracing.format(m,LevelToString(level),file,rn);
     }
     private static __log(m: string, err: boolean): void {
         if(err){
@@ -128,37 +139,42 @@ class IOLogger {
             process.stdout.write(m)
         }
     }
-    private static __cog(m: string): void {
-        corelog.log(m);
+    private static __cog(m: string[]): void {
+        if(__INTERNALS._CORELOG_ENABLED){
+            corelog.corelog(m[1]);
+            corelog.toplog(m[2]);
+        }
     }
     public static log(m: any, file: string[], level: Level){
         let err = false;
-        let res = this.__format(m,level,"","",file,new Date());
+        let res = this.__format(m,level,file,new Date());
         if(level.valueOf() == Level.Error.valueOf()) { err = true }
         if(level.valueOf() <= getLogLevel().valueOf()){this.__log(res[0],err)}
-        if(level.valueOf() <= __getLevel().valueOf()){this.__cog(res[1])}
+        if(level.valueOf() <= __getLevel().valueOf()){this.__cog(res)}
     }
 }
 
 let LOGLEVEL: Level = Level.Info;
-let LOGGER;
+let LOGGER: UsedLogger<any>;
 
 
 /**
+ * sets the log level to use
  * @function
  * @param {Level} level level to set the logging to
  * @returns {void}
  */
-export const setLogLevel = function(level: Level): void {
+export function setLogLevel(level: Level): void {
     LOGLEVEL = level;
 }
 
 /**
+ * sets the logger to use
  * @function
  * @param {"Console" | "IO" | T} type
  * @returns {void}
 */
-export const setLogger = function<T extends BaseLogger>(type: "Console" | "IO" | T): void {
+export function setLogger<T extends BaseLogger>(type: "Console" | "IO" | T): void {
     if(type == "Console") {
         LOGGER = new UsedLogger(new ConsoleLogger());
     } else if(type == "IO"){
@@ -169,16 +185,18 @@ export const setLogger = function<T extends BaseLogger>(type: "Console" | "IO" |
 }
 
 /**
+ * gets the currently used log level
  * @function
  * @returns {Level}
 */
-export const getLogLevel = function():Level{return LOGLEVEL;}
+export function getLogLevel(): Level { return LOGLEVEL; }
 
 /**
+ * gets the currently used logger
  * @function
 */
-export const getLogger = function<T extends BaseLogger>(): UsedLogger<T> {
-    if(LOGGER == undefined){setLogger("Console")}
+export function getLogger<T extends BaseLogger>(): UsedLogger<T> {
+    if(LOGGER == undefined){ setLogger("Console") }
     return LOGGER;
 }
 

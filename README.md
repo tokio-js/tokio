@@ -22,17 +22,9 @@
 
 ### Examples:
 
-```js
-require("ts-tools")();
-
-_main$ = () => {
-  console.log("Hello World effgmwgwemg")
-};
-```
-
 ```ts
-import tst from "ts-tools";
-const { app, L } = tst();
+import tokiojs from "ts-tools";
+const { app, L } = tokiojs.load();
 
 app._main$ = async function(args: string[]) {
   L._info$("Hello World")

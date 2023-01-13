@@ -1,11 +1,15 @@
-//! DO NOT CHANGE, won't work anymore if you do
-import core from "../bin";
+import * as bin from "../bin";
 
 
 interface Tracer {
-    log(m: any): void
+    corelog(m: any): void,
+    toplog(m: any): void
 }
-let TRACER: Tracer = { log(m: any): void {} };
+
+let TRACER: Tracer = {
+    corelog(_: any): void {},
+    toplog(_: any): void {}
+};
 
 
 export class CoreLog {
@@ -16,20 +20,26 @@ export class CoreLog {
     */
     public static init(): void {
         let logger: any;
-        logger = new core.CoreLog();
+        logger = new (bin.load()).CoreLog();
         TRACER = {
-            log(m: any): void {
-                logger.log(m);
-            }
+            corelog(m: any): void {
+                logger.corelog(m);
+            },
+            toplog(m) {
+                logger.toplog(m);
+            },
         }
-        TRACER.log("CoreLog loaded");
-    }
-
-    public log(m: any): void {
-        TRACER.log(m);
     }
 }
 
-export function log(m: any): void {
-    TRACER.log(m);
+export function corelog(m: string): void {
+    TRACER.corelog(m);
+}
+
+export function toplog(m: string): void {
+    TRACER.toplog(m);
+}
+
+export function get(): boolean {
+    return bin.get();
 }

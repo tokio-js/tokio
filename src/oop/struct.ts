@@ -12,7 +12,7 @@ export class Struct {
 
 export class StructBuilder implements OOP.Builder<StructBuilder,Struct> {
     private data: Struct;
-    
+
     constructor(name: string) {
         this.data = new Struct();
         this.data["__struct__"].name = name;

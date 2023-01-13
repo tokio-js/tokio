@@ -1,4 +1,5 @@
-const { L } = require("../../src/lib")("NOINJECT");
+import tokiojs from "../../src/lib";
+const { L } = tokiojs.load();
 const {_debug$,_error$,_info$,_trace$,_warn$} = L;
 
 // Sets the log level, defaults to "Info"

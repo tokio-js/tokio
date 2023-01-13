@@ -1,10 +1,12 @@
 /node_modules
 /corelogs
+/.vscode
 /private
 /target
 /build
 /dist
 /out
+/.vs
 
 *.test.*
 

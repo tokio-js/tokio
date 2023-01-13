@@ -27,7 +27,7 @@ export namespace OOP {
     export interface ITemplate {
         [key: string]: any;
     }
-    
+ 
     /**
      * @class
      * 
@@ -39,9 +39,9 @@ export namespace OOP {
             this.name = name;
             this.data = args;
         }
-    
+  
         public inject(): void {
-            Object.defineProperty(globalThis, "__injecter", { value: () => {
+            Object.defineProperty(globalThis, "__tokio_internal_injecter", { value: () => {
                 let res = "interface " + this.name + " {"
                 for (let key in this.data) {
                     res += "" + key + ": " + this.data[key] + ",";
@@ -51,46 +51,46 @@ export namespace OOP {
             }});
         }
     }
-    
+  
     export class TemplateBuilder implements Builder<TemplateBuilder,Template> {
         private name: string;
         private data: ITemplate = {};
         constructor(name: string) {
             this.name = name;
         }
-    
+   
         public set(key: string, value: any): TemplateBuilder {
             this.data[key] = value;
             return this;
         }
-    
+   
         public build(): Template {
             return new Template(this.name,this.data);
         }
     }
-    
+   
     export interface IProperty {
         [key: string]: any;
     }
-    
-    
+   
+   
     export class IPropertyBuilder implements Builder<IPropertyBuilder,IProperty> {
         private data: IProperty = {};
         constructor(obj?: object) {
             this.data = obj ? undefined : {};
         }
-    
+   
         public set(key: string, value: any): IPropertyBuilder {
             this.data[key] = value;
             return this;
         }
-    
+   
         public build(): IProperty {
             return this.data;
         }
     }
-    
-    
+   
+   
     export interface Builder<ThingBuilder,Thing> {
         build() : Thing;
         set(key: string, value: any) : ThingBuilder;

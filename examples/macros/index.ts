@@ -1,17 +1,8 @@
-import tst from "../../src/lib";
-const { M } = tst();
+import tokiojs from "../../src/lib";
+const { M } = tokiojs.load();
 
-function hw() {
-    console.log("Hello World!");
-    console.log("Test")
-};
+M.$New("Hello World!",()=>{
+    console.log("Hello World!")
+});
 
-function premain() {
-    hw()
-}
-
-function main(){
-    premain()
-}
-
-main();
+M._ = "Hello World!";

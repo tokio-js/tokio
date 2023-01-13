@@ -1,4 +1,3 @@
-
 #GENDECFILES(
 tsc --declaration true --emitDeclarationOnly true --declarationMap true
 )
