@@ -26,13 +26,13 @@
             }
         }catch(e){
             if(e instanceof TypeError){
-                // try{
-                //     throw new Error()
-                // }catch(e){
-                //     const arr:string[]=e.stack.replace(/  /g,"").split(/\n/g);
-                //     let trc=arr[4].split("at ")[1];
-                //     return[trc,trc]
-                // }
+                try{
+                    throw new Error()
+                }catch(e){
+                    const arr:string[]=e.stack.replace(/  /g,"").split(/\n/g);
+                    let trc=arr[4].split("at ")[1];
+                    return[trc,trc]
+                }
             } else {
                 console.error("Failed to trace, Error: " + e);
                 return ["",""]
