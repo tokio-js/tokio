@@ -1,5 +1,4 @@
 (()=>{
-    globalThis["__tokio_internal_error"]=(m:string)=>{require("../corelog/corelog").corelog(m);console.error(m);process.exit(1);}
     globalThis["__tokio_internal_t"]=(()=>{return{
         f:(f:string)=>{return`[${f}]`},
         m:(m:string,c:string,e:string)=>{var FLAG=false;let res="";for(let i=0;i<m.length;i++){if(m[i]=='"'&&FLAG==true){FLAG=false;res+=`${c}"`}else if(m[i]=='"'&&FLAG==false){FLAG=true;res+="\"\u001b[38;5;56m"}else{res+=m[i]}}return`${c}${res}${e}`},
@@ -27,7 +26,13 @@
             }
         }catch(e){
             if(e instanceof TypeError){
-                globalThis["__tokio_internal_error"]("Unable to trace function calls if they are in a Macro because of how they work. Please use a normal function instead.");
+                // try{
+                //     throw new Error()
+                // }catch(e){
+                //     const arr:string[]=e.stack.replace(/  /g,"").split(/\n/g);
+                //     let trc=arr[4].split("at ")[1];
+                //     return[trc,trc]
+                // }
             } else {
                 console.error("Failed to trace, Error: " + e);
                 return ["",""]
