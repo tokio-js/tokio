@@ -1,8 +1,8 @@
 import tokiojs from "../../src/lib";
-const { M } = tokiojs.load();
+const { M, L } = tokiojs.load();
 
 M.$New("Hello World!",()=>{
-    console.log("Hello World!")
+    L._info$("Hello World!")
 });
 
 M._ = "Hello World!";

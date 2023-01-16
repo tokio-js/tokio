@@ -1,31 +1,30 @@
 {
-  "name": "tokiojs",
-  "version": "2.0.0-PRE1",
-  "description": "Tools for TS",
+  "name": "@tokio-js/tokio",
+  "version": "2.0.0-PRE2",
+  "description": "JavaScript's asynchronous runtime",
   "author": "AtomicGamer9523",
   "license": "MIT",
-
-  
   "dependencies": {
-    "@tokio-js/orbit": "1.0.0"
+    "@tokio-js/trutrace": "^1.0.0",
+    "@tokio-js/corelog": "^1.0.0",
+    "@tokio-js/orbit": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.5"
+    "@types/node": "^18.5",
+    "@vercel/ncc": "latest",
+    "turbo": "latest"
   },
-
-
   "scripts": {
-    "build": "nj-cli build && tsc"
+    "build": "node ./bin/build.js",
+    "start": "node ./bin/run.js"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-
-
-  "types": "./build/lib.d.ts",
+  "types": "./.turbo/build/lib.d.ts",
   "type": "commonjs",
-  "main": "./build/lib.js",
+  "main": "./.turbo/build/lib.js",
   "bin": {
-    "tokiojs": "./bin/js/cli.js"
+    "tokio": "./bin/cli.js"
   }
 }

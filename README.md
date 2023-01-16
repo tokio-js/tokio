@@ -1,7 +1,10 @@
-# TSTools
-## Useful Tools for Typescript
-### Examples: [./examples](./examples/README.md)
-### Tools Included:
+# TokioJS
+
+## JavaScript's asynchronous runtime
+
+### [Examples](./examples/)
+
+### Tools Included
 
 * Macros
   * Easy to create
@@ -20,10 +23,10 @@
   * Builders
   * Advanced Contructors
 
-### Examples:
+### Example (TS)
 
 ```ts
-import tokiojs from "ts-tools";
+import tokiojs from "@tokio-js/tokio";
 const { app, L } = tokiojs.load();
 
 app._main$ = async function(args: string[]) {

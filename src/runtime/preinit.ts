@@ -1,5 +1,9 @@
+const corelog = require("@tokio-js/corelog");
+import { Tokio } from "../tokio";
 import * as flags from "./flags";
-import * as bin from "../bin";
+import { BUS } from "./events";
+
+export function _(){}
 
 
 function check_lazy_load() {
@@ -11,8 +15,7 @@ function check_lazy_load() {
     Config.LAZY_LOAD = false;
 }
 
-
-export function preinit() {
+BUS.on("TOKIO.PreInitEvent", () => {
     check_lazy_load();
     flags.subscribe({
         id: "TOKIO_INTERNALS",
@@ -42,9 +45,9 @@ export function preinit() {
                 return L._error$("Internals are not enabled");
             }
             if(typeof v == "boolean" && v == false) {
-                bin.set(false);
+                corelog.setStatus(false);
             } else {
-                bin.set(true);
+                corelog.setStatus(true);
             }
         },
         onEnable: () => {
@@ -56,10 +59,80 @@ export function preinit() {
         }
     });
     flags.register();
-}
+});
+
+BUS.on("TOKIO.PreInitEvent", () => {
+    flags.subscribe({
+        id: "TOKIO_INTERNAL_INIT",
+        enabled: false,
+        updateValue(v) {
+            const { L } = require("../log/log");
+            if(!Config.INTERNALS && !Config.LAZY_LOAD) {
+                return L._error$("Internals are not enabled");
+            }
+            if(typeof v === "function") {
+                v()
+            } else {
+                L._error$("Expected Function found: " + typeof v )
+            }
+        },
+        onEnable(){},
+    });
+    flags.subscribe({
+        id: "TOKIO_BIN",
+        enabled: false,
+        updateValue(v) {
+            const { L } = require("../log/log");
+            if(!Config.INTERNALS && !Config.LAZY_LOAD) return L._error$("Internals are not enabled");
+            if(v===true) {
+                Config.BIN_UTILS = true;
+            } else {
+                Config.BIN_UTILS = false;
+            }
+        },
+        onEnable(){},
+    });
+    flags.subscribe({
+        id: "TOKIO_EXPORT_BUS",
+        enabled: false,
+        updateValue(v) {
+            const { L } = require("../log/log");
+            if(!Config.INTERNALS && !Config.LAZY_LOAD) return L._error$("Internals are not enabled");
+            if(v===true) {
+                Config.EXPORT_BUS = true;
+            } else {
+                Config.EXPORT_BUS = false;
+            }
+        },
+        onEnable(){},
+    });
+    flags.register();
+});
+
+BUS.on("TOKIO.PostInitEvent", () => {
+    Object.defineProperty(Tokio.EXPORTABLES, "CONFIG", {
+        get() {
+            if(Config.INTERNALS) {
+                return Config;
+            } else {
+                return undefined;
+            }
+        },
+    });
+    Object.defineProperty(Tokio.EXPORTABLES, "BUS", {
+        get() {
+            if(Config.INTERNALS) {
+                return BUS;
+            } else {
+                return undefined;
+            }
+        },
+    });
+});
 
 export namespace Config {
     export let BIN_UTILS: boolean = false;
     export let INTERNALS: boolean = false;
     export let LAZY_LOAD: boolean = false;
+    export let EXPORT_BUS: boolean = false;
 }
