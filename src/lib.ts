@@ -1,6 +1,5 @@
-// Needed for initialization
 import { init } from "./runtime/init";
-init();
+init();// loads internals
 
 // Exports the Tokio object
 import { Tokio } from "./tokio";

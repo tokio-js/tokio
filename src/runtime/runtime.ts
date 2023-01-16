@@ -32,7 +32,7 @@ export const runner = _runner;
 export class App {
     #main: (_:string[]) => void;
     constructor() {
-        this.#main = () => {
+        this.#main = (_) => {
             console.log("Hello World");
         };
         L._trace$("App created");

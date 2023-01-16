@@ -1,12 +1,18 @@
+import { PostInitEvent } from "../events/PostInit.event";
+import { InitEvent } from "../events/Init.event";
 import { TokioType } from "../types/tokio";
+import { BUS } from "./events";
 
 
 let USEINJECT: boolean = true;
 let NOCONSOLEINJECT: boolean = false;
+let TURBO_CORELOGS: boolean = true;
 
 
-export function runtimeInjector(...inject: ("NOINJECT" | "OLDCONSOLE" | "NOAUTOINIT" | string)[]): typeof TokioType {
-    const corelog = require("../corelog/corelog");
+export function runtimeInjector(inject?: string[]): typeof TokioType {
+    if(!inject) inject = [];
+    BUS.post(new InitEvent());
+    const corelog = require("@tokio-js/corelog");
     const { __INTERNALS } = require("../log/logger");
     const macros = require("../macros/macros");
     const runtime = require("./runtime");
@@ -21,13 +27,18 @@ export function runtimeInjector(...inject: ("NOINJECT" | "OLDCONSOLE" | "NOAUTOI
         app: undefined,
         OOP: OOP,
     };
+    if(inject.includes("NOTURBOCORELOGS"))TURBO_CORELOGS=false;
     if(inject.includes("NOAUTOINIT")) {
         console.warn('"NOAUTOINIT" feature is enabled, manual injection is required');
         USEINJECT = false;
     } else {
-        corelog.CoreLog.init();
+        if(TURBO_CORELOGS) {
+            corelog.init();
+        } else {
+            corelog.init("corelogs");
+        }
         L._setLogLevel$("Debug")
-        if(corelog.get()) {
+        if(corelog.getStatus()) {
             L._trace$("CORELOG Loaded");
         } else {
             L._trace$("CORELOG not loaded");
@@ -39,7 +50,14 @@ export function runtimeInjector(...inject: ("NOINJECT" | "OLDCONSOLE" | "NOAUTOI
             if(Config.INTERNALS) {
                 L._trace$("Internals enabled, exporting Developer Specific Features");
                 return {
-                    __internals__: true
+                    __internals__: true, 
+                    bus: (()=>{
+                        if(Config.EXPORT_BUS) {
+                            return BUS;
+                        } else {
+                            return {};
+                        }
+                    })()
                 };
             } else {
                 L._error$("Internals are not enabled");
@@ -125,5 +143,6 @@ export function runtimeInjector(...inject: ("NOINJECT" | "OLDCONSOLE" | "NOAUTOI
         globalThis["__tokio_internal_$Injecter"]();
     }
     Tokio.app = new runtime.App();
+    BUS.post(new PostInitEvent());
     return Tokio;
 }

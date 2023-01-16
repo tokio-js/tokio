@@ -1,11 +1,11 @@
-import * as corelog from "../corelog/corelog";
-import * as tracing from "../tracing/tracing";
+const corelog = require("@tokio-js/corelog");
+const tracing = require("@tokio-js/trutrace");
 export { tracing };
 export namespace __INTERNALS {
     export var _CORELOG_ENABLED: boolean = true;
     export const unsafeLog = (m: string): void => {
         let r = tracing.format(m,"TRC",tracing.trace(),new Date());
-        corelog.corelog(r[1]);
+        corelog.log("CORE",r[1]);
     }
 }
 export enum Level {
@@ -103,8 +103,8 @@ class ConsoleLogger {
     private static __log(m: string): void { process.stdout.write(m + "\n") }
     private static __cog(m: string[]): void {
         if(__INTERNALS._CORELOG_ENABLED){
-            corelog.corelog(m[1]);
-            corelog.toplog(m[2]);
+            corelog.log("CORE", m[1]);
+            corelog.log("TOP", m[2]);
         }
     }
     public static log(m: any, file: string[], level: Level){
@@ -141,8 +141,8 @@ class IOLogger {
     }
     private static __cog(m: string[]): void {
         if(__INTERNALS._CORELOG_ENABLED){
-            corelog.corelog(m[1]);
-            corelog.toplog(m[2]);
+            corelog.log("CORE", m[1]);
+            corelog.log("TOP", m[2]);
         }
     }
     public static log(m: any, file: string[], level: Level){

@@ -1,6 +1,6 @@
 import { Tokio } from "../tokio";
 
-interface Flag  {
+interface Flag {
     id: string;
     enabled: boolean;
     onEnable: () => void;

@@ -1,16 +1,35 @@
+#========================================#
+# Large amounts of code / logs
 /node_modules
 /corelogs
-/.vscode
+#========================================#
+
+#========================================#
+# IDE specific files
+.vscode
+.vs
+#========================================#
+
+#========================================#
+# Private data
 /private
-/target
-/build
-/dist
-/out
-/.vs
+#========================================#
 
-*.test.*
+#========================================#
+# Build output
+.turbobuild
+.turbo
+.build
+target
+build
+dist
+out
+# bin
+# We need bin today, includes CLI and tokio internals
+#========================================#
 
+#========================================#
+# Misc
 *.lock
-*.json
-!package.json
-!tsconfig.json
+package-lock.json
+#========================================#
