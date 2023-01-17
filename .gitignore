@@ -6,8 +6,8 @@
 
 #========================================#
 # IDE specific files
-.vscode
-.vs
+/.vscode
+/.vs
 #========================================#
 
 #========================================#
@@ -17,19 +17,18 @@
 
 #========================================#
 # Build output
-.turbobuild
-.turbo
-.build
-target
-build
-dist
-out
-# bin
-# We need bin today, includes CLI and tokio internals
+/.turbobuild
+/.turbo
+/.build
+/target
+/build
+/dist
+/out
+/bin
 #========================================#
 
 #========================================#
 # Misc
-*.lock
-package-lock.json
+/*.lock
+/package-lock.json
 #========================================#
