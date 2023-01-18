@@ -40,6 +40,18 @@ app.run();
 
 ### Installation
 
+Command Line:
+
 ```sh
 npm install https://github.com/tokio-js/tokio
+```
+
+Or add to your `package.json`:
+
+```json
+{
+  "dependencies": {
+    "tokiojs": "github:tokio-js/tokio"
+  }
+}
 ```

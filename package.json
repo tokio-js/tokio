@@ -1,6 +1,6 @@
 {
   "name": "@tokio-js/tokio",
-  "version": "2.0.0-PRE4",
+  "version": "2.0.0",
   "description": "JavaScript's asynchronous runtime",
   "author": "AtomicGamer9523",
   "license": "MIT",
