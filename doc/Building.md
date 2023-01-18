@@ -4,7 +4,6 @@
 
 - [NodeJS](https://nodejs.org) `v16.0.0+`
 - [Rust](https://rustup.rs) `v1.55.0+` (If you are bulding [corelog](https://github.com/tokio-js/corelog))
-- [TurboRepo](https://turbo.build/) `v1.5.0+`
 
 ### Building
 
@@ -12,6 +11,9 @@
 # Install source code
 git clone https://github.com/tokio-js/tokio
 cd tokio
+
+# Install dependencies
+npm install --global turbo
 
 # Check if you have the correct version of dependencies
 node --version
