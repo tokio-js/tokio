@@ -32,5 +32,10 @@ jobs:
         with:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
+      - run: npm i
+      - run: node builder.js
+      - run: npm install -g turbo
+      - run: turbo build
+      - run: npm run cli -- --diagnose
       - run: npm ci
       - run: npm publish

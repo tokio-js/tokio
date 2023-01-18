@@ -26,10 +26,8 @@
   * Advanced Contructors
 
 ### Example (TS)
-### Example (TS)
 
 ```ts
-import tokiojs from "@tokio-js/tokio";
 import tokiojs from "@tokio-js/tokio";
 const { app, L } = tokiojs.load();
 
@@ -40,8 +38,8 @@ app._main$ = async function(args: string[]) {
 app.run();
 ```
 
-### If you are using github as the npm registry, add this to your [`.npmrc`](https://docs.npmjs.com/files/npmrc) file
+### Installation
 
-```text
-@tokio-js:registry=https://npm.pkg.github.com
+```sh
+npm install https://github.com/tokio-js/tokio
 ```
