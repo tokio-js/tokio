@@ -1,5 +1,5 @@
-const orbit = require('@tokio-js/orbit');
-export class PostInitEvent extends orbit.Event {
+import { Event } from 'orbit';
+export class PostInitEvent extends Event {
     constructor() {
         super("TOKIO.PostInitEvent");
     }

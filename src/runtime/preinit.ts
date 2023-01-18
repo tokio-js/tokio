@@ -1,4 +1,4 @@
-const corelog = require("@tokio-js/corelog");
+import * as corelog from "corelog";
 import { Tokio } from "../tokio";
 import * as flags from "./flags";
 import { BUS } from "./events";

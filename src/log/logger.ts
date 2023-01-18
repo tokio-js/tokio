@@ -1,5 +1,5 @@
-const corelog = require("@tokio-js/corelog");
-const tracing = require("@tokio-js/trutrace");
+import * as tracing from "trutrace";
+import * as corelog from "corelog";
 export { tracing };
 export namespace __INTERNALS {
     export var _CORELOG_ENABLED: boolean = true;

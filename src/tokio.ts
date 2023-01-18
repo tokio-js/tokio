@@ -41,7 +41,6 @@ export namespace Tokio {
      * @returns {typeof TokioType} TokioJS
      */
     export function load(...features: LoadFeatures[]): typeof TokioType {
-    export function load(...features: LoadFeatures[]): typeof TokioType {
         const { runtimeInjector } = require("./runtime/runtimeinjecter");
         return runtimeInjector(features);
         return runtimeInjector(features);

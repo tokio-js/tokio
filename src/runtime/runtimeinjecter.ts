@@ -12,7 +12,7 @@ let TURBO_CORELOGS: boolean = true;
 export function runtimeInjector(inject?: string[]): typeof TokioType {
     if(!inject) inject = [];
     BUS.post(new InitEvent());
-    const corelog = require("@tokio-js/corelog");
+    const corelog = require("corelog");
     const { __INTERNALS } = require("../log/logger");
     const macros = require("../macros/macros");
     const runtime = require("./runtime");

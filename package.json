@@ -1,6 +1,6 @@
 {
   "name": "@tokio-js/tokio",
-  "version": "2.0.0-PRE3",
+  "version": "2.0.0-PRE4",
   "description": "JavaScript's asynchronous runtime",
   "author": "AtomicGamer9523",
   "license": "MIT",
@@ -13,9 +13,9 @@
 
 
   "dependencies": {
-    "@tokio-js/corelog": "^1.0.0",
-    "@tokio-js/orbit": "^1.0.0",
-    "@tokio-js/trutrace": "^1.0.0"
+    "trutrace": "github:tokio-js/trutrace",
+    "corelog": "github:tokio-js/corelog",
+    "orbit": "github:tokio-js/orbit"
   },
   "devDependencies": {
     "@types/node": "^18.5",

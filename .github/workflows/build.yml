@@ -14,9 +14,6 @@ jobs:
         with:
           node-version: 18
       - run: npm i
-        with: 
-          registry-url: https://npm.pkg.github.com/
-          token: ${{secrets.NPM_REGISTRY_ACCESS_TOKEN}}
       - run: node builder.js
       - run: turbo build
       - run: npm run cli -- --diagnose
