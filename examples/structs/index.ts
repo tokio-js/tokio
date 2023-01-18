@@ -1,4 +1,4 @@
-import tokiojs from "../../src/lib";
+import tokiojs from "../../.turbo/build/lib";
 const { OOP } = tokiojs.load("OLDCONSOLE");
 
 let klazz = OOP._Struct$("StructName")// Contructor

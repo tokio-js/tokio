@@ -1,30 +1,45 @@
 {
   "name": "@tokio-js/tokio",
-  "version": "2.0.0-PRE2",
+  "version": "2.0.0-PRE3",
   "description": "JavaScript's asynchronous runtime",
   "author": "AtomicGamer9523",
   "license": "MIT",
+
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tokio-js/tokio"
+  },
+
+
   "dependencies": {
-    "@tokio-js/trutrace": "^1.0.0",
     "@tokio-js/corelog": "^1.0.0",
-    "@tokio-js/orbit": "^1.0.0"
+    "@tokio-js/orbit": "^1.0.0",
+    "@tokio-js/trutrace": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.5",
     "@vercel/ncc": "latest",
-    "turbo": "latest"
+    "turbo": "latest",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
   },
   "scripts": {
-    "build": "node ./bin/build.js",
-    "start": "node ./bin/run.js"
+    "build": "node .turbo/bin/build.js",
+    "cli": "node .turbo/bin/cli.js"
   },
+
+
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
   },
+
+
   "types": "./.turbo/build/lib.d.ts",
   "type": "commonjs",
   "main": "./.turbo/build/lib.js",
   "bin": {
-    "tokio": "./bin/cli.js"
+    "tokio": "./.turbo/bin/cli.js"
   }
 }

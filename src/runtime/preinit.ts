@@ -31,7 +31,7 @@ BUS.on("TOKIO.PreInitEvent", () => {
             if(!Config.LAZY_LOAD) {
                 const { L } = require("../log/log");
                 L._setLogLevel$("Trace")
-                L._warn$("\"TOKIO_INTERNALS\" flag recieved: enabling unsafe, internal features");
+                L._trace$("\"TOKIO_INTERNALS\" flag recieved: enabling unsafe, internal features");
             }
         },
     });

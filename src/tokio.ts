@@ -28,20 +28,22 @@ import { TokioType } from "./types/tokio";
  * 
  * L._info$("Hello World");
  * ```
+ * @namespace Tokio
 */
 export namespace Tokio {
-
     type LoadFeatures = "NOINJECT" | "OLDCONSOLE" | "NOAUTOINIT" | "NOTURBOCORELOGS" | string;
 
     /**
      * ## Loads TokioJS
      * ### If you are a regular user don't pass any arguments to this function.
      * However, if you are a power user, you already know what to do.
-     * @param {LoadFeatures[]} features
+     * @param {...LoadFeatures[]} features
      * @returns {typeof TokioType} TokioJS
      */
     export function load(...features: LoadFeatures[]): typeof TokioType {
+    export function load(...features: LoadFeatures[]): typeof TokioType {
         const { runtimeInjector } = require("./runtime/runtimeinjecter");
+        return runtimeInjector(features);
         return runtimeInjector(features);
     }
 
@@ -52,6 +54,14 @@ export namespace Tokio {
      * @description Flags for Tokio, should not be used by everyday user, only for developers
      */
     export var FLAGS = {};
+
+    /**
+     * @private
+     * @access private
+     * @memberof Tokio
+     * @description Exportables for Tokio internals, should not be used by everyday user, only for developers
+     */
+    export var EXPORTABLES = {};
 
     /**
      * @private

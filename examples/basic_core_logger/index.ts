@@ -1,10 +1,9 @@
-import tokiojs from "../../src/lib";
+import tokiojs from "../../.turbo/build/lib";
 const { L } = tokiojs.load();
 const {_debug$,_error$,_info$,_trace$,_warn$} = L;
 
 // Sets the log level, defaults to "Info"
 L._setLogLevel$("Warn")
-
 
 _error$("Some random Error Message"); // will be visible in console and file
 _warn$("Some random Warning Message");// will be visible in console and file
