@@ -15,6 +15,7 @@ jobs:
           node-version: 18
       - run: npm i
       - run: node builder.js
+      - run: npm install -g turbo
       - run: turbo build
       - run: npm run cli -- --diagnose
       - run: npm ci
