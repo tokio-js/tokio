@@ -23,8 +23,7 @@
   },
   "scripts": {
     "build": "node .turbo/bin/build.js",
-    "cli": "node .turbo/bin/cli.js",
-    "__npmpack__": "node .turbo/bin/package.js"
+    "cli": "node .turbo/bin/cli.js"
   },
 
 
