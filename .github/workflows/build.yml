@@ -23,6 +23,8 @@ jobs:
       - run: npm install -g turbo
       - run: turbo build
       - run: npm run cli -- --diagnose
+      - run: npm run __npmpack__
+      - run: rm builder.js
       - run: npm ci
 
   publish-gpr:
