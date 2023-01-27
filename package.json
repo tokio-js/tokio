@@ -1,6 +1,6 @@
 {
   "name": "@tokio-js/tokio",
-  "version": "2.0.0-PRE11",
+  "version": "2.0.0",
   "description": "JavaScript's asynchronous runtime",
   "author": "AtomicGamer9523",
   "license": "MIT",
@@ -33,7 +33,7 @@
   },
 
 
-  "types": "./src/lib.d.ts",
+  "types": "./.turbo/build/lib.d.ts",
   "type": "commonjs",
-  "main": "./src/lib.js"
+  "main": "./.turbo/build/lib.js"
 }
