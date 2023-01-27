@@ -1,4 +1,4 @@
-﻿import * as tracing from "trutrace";
+﻿import * as tracing from "@tokio-js/trutrace";
 export { tracing };
 export declare namespace __INTERNALS {
     var _CORELOG_ENABLED: boolean;

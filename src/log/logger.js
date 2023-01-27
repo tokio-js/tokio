@@ -24,9 +24,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.__getLevel = exports.__setLevel = exports.getLogger = exports.getLogLevel = exports.setLogger = exports.setLogLevel = exports.BaseLogger = exports.StringToLevel = exports.LevelToString = exports.Level = exports.__INTERNALS = exports.tracing = void 0;
-const tracing = __importStar(require("trutrace"));
+const tracing = __importStar(require("@tokio-js/trutrace"));
 exports.tracing = tracing;
-const corelog = __importStar(require("corelog"));
+const corelog = __importStar(require("@tokio-js/corelog"));
 var __INTERNALS;
 (function (__INTERNALS) {
     __INTERNALS._CORELOG_ENABLED = true;

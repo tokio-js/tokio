@@ -11,7 +11,7 @@ function runtimeInjector(inject) {
     if (!inject)
         inject = [];
     events_1.BUS.post(new Init_event_1.InitEvent());
-    const corelog = require("corelog");
+    const corelog = require("@tokio-js/corelog");
     const { __INTERNALS } = require("../log/logger");
     const macros = require("../macros/macros");
     const runtime = require("./runtime");

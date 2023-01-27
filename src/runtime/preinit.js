@@ -24,7 +24,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Config = exports._ = void 0;
-const corelog = __importStar(require("corelog"));
+const corelog = __importStar(require("@tokio-js/corelog"));
 const tokio_1 = require("../tokio");
 const flags = __importStar(require("./flags"));
 const events_1 = require("./events");

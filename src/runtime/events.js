@@ -27,7 +27,7 @@ exports.__init = exports.BUS = void 0;
 const PostInit_event_1 = require("../events/PostInit.event");
 const PreInit_event_1 = require("../events/PreInit.event");
 const Init_event_1 = require("../events/Init.event");
-const orbit = __importStar(require("orbit"));
+const orbit = __importStar(require("@tokio-js/orbit"));
 exports.BUS = new orbit.Bus();
 function __init() {
     PostInit_event_1.PostInitEvent.link(exports.BUS);
