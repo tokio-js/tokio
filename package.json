@@ -1,6 +1,6 @@
 {
   "name": "@tokio-js/tokio",
-  "version": "2.0.0",
+  "version": "2.0.0-PRE6",
   "description": "JavaScript's asynchronous runtime",
   "author": "AtomicGamer9523",
   "license": "MIT",
@@ -23,7 +23,8 @@
   },
   "scripts": {
     "build": "node .turbo/bin/build.js",
-    "cli": "node .turbo/bin/cli.js"
+    "cli": "node .turbo/bin/cli.js",
+    "__npmpack__": "node .turbo/bin/package.js"
   },
 
 
@@ -33,10 +34,7 @@
   },
 
 
-  "types": "./.turbo/build/lib.d.ts",
+  "types": "./src/lib.d.ts",
   "type": "commonjs",
-  "main": "./.turbo/build/lib.js",
-  "bin": {
-    "tokio": "./.turbo/bin/cli.js"
-  }
+  "main": "./src/lib.js"
 }
