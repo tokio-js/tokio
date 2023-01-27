@@ -13,9 +13,9 @@
 
 
   "dependencies": {
-    "trutrace": "github:tokio-js/trutrace",
-    "corelog": "github:tokio-js/corelog",
-    "orbit": "github:tokio-js/orbit"
+    "@tokio-js/trutrace": "github:tokio-js/trutrace",
+    "@tokio-js/corelog": "github:tokio-js/corelog",
+    "@tokio-js/orbit": "github:tokio-js/orbit"
   },
   "devDependencies": {
     "@types/node": "^18.5",
