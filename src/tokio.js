@@ -60,11 +60,4 @@ var Tokio;
      * @description Exportables for Tokio internals, should not be used by everyday user, only for developers
      */
     Tokio.EXPORTABLES = {};
-    /**
-     * @private
-     * @access private
-     * @memberof Tokio
-     * @description Exportables for Tokio internals, should not be used by everyday user, only for developers
-     */
-    Tokio.EXPORTABLES = {};
 })(Tokio = exports.Tokio || (exports.Tokio = {}));

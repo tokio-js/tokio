@@ -43,7 +43,7 @@ app.run();
 Command Line:
 
 ```sh
-npm install https://github.com/tokio-js/tokio
+npm install tokiojs@https://github.com/tokio-js/tokio#build --save
 ```
 
 Or add to your `package.json`:
@@ -51,7 +51,7 @@ Or add to your `package.json`:
 ```json
 {
   "dependencies": {
-    "tokiojs": "github:tokio-js/tokio"
+    "tokiojs": "github:tokio-js/tokio#build"
   }
 }
 ```

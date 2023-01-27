@@ -53,12 +53,5 @@ export declare namespace Tokio {
      * @description Exportables for Tokio internals, should not be used by everyday user, only for developers
      */
     export var EXPORTABLES: {};
-    /**
-     * @private
-     * @access private
-     * @memberof Tokio
-     * @description Exportables for Tokio internals, should not be used by everyday user, only for developers
-     */
-    export var EXPORTABLES: {};
     export {};
 }
