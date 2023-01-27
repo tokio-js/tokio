@@ -1,5 +1,5 @@
-import * as tracing from "trutrace";
-import * as corelog from "corelog";
+import * as tracing from "@tokio-js/trutrace";
+import * as corelog from "@tokio-js/corelog";
 export { tracing };
 export namespace __INTERNALS {
     export var _CORELOG_ENABLED: boolean = true;

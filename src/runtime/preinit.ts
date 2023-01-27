@@ -1,4 +1,4 @@
-import * as corelog from "corelog";
+import * as corelog from "@tokio-js/corelog";
 import { Tokio } from "../tokio";
 import * as flags from "./flags";
 import { BUS } from "./events";
